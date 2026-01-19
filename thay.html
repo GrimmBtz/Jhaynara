@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Para Thaynara 💌</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- ESTILO GERAL --- */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #a8e6cf, #dcedc1, #ffaaa5);
+      height: 100vh;
+      overflow: hidden; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    #matrix { position: fixed; inset: 0; z-index: 0; opacity: 0.15; }
+
+    .envelope {
+      position: relative;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 30px;
+      padding: 40px 30px;
+      max-width: 600px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      animation: floatEnvelope 6s ease-in-out infinite;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+
+    @keyframes floatEnvelope {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+    button { margin-top: 20px; padding: 12px 35px; border-radius: 50px; border: none; cursor: pointer; background: linear-gradient(45deg, #ff9a9e, #fad0c4); color: #fff; font-weight: 600; transition: 0.3s; }
+    
+    .btn-natureza { background: linear-gradient(45deg, #42e695, #3bb2b8); margin-bottom: 20px; }
+    .hidden { display: none; }
+    .surpresa { margin-top: 20px; text-align: left; background: rgba(255,255,255,0.2); padding: 20px; border-radius: 15px; animation: openLetter 1s ease; }
+
+    /* --- NARUTO RUN --- */
+    .naruto-run { position: fixed; bottom: 20px; width: 120px; z-index: 1; animation: narutoMove 10s linear infinite; }
+    @keyframes narutoMove { 0% { left: -150px; } 100% { left: 100vw; } }
+
+    /* --- BOLA E CANTADAS --- */
+    .volei-container { position: fixed; bottom: 40px; right: 40px; z-index: 100; cursor: pointer; }
+    .bola { font-size: 60px; transition: 0.2s; }
+    .bola-hit { animation: bolaCortada 0.5s ease-out; }
+    @keyframes bolaCortada { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-50px); } }
+    
+    .cantada-popup {
+      position: absolute; bottom: 80px; right: 0; background: white; color: #ff6f91;
+      padding: 10px 15px; border-radius: 15px; width: 200px; font-size: 0.9rem; font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2); opacity: 0; transition: 0.3s; pointer-events: none;
+    }
+    .cantada-active { opacity: 1; transform: translateY(-10px); }
+
+    /* --- OVERLAY DA ÁRVORE MAGICA --- */
+    #overlay-arvore {
+      position: fixed; inset: 0; background: radial-gradient(circle, #1a2a1a 0%, #000 100%);
+      z-index: 2000; display: none; flex-direction: column; align-items: center; justify-content: center;
+    }
+    #canvas-arvore { max-width: 100%; max-height: 70vh; }
+    .msg-niver-top {
+      font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: #a8e6cf;
+      opacity: 0; transition: 2s; margin-bottom: 20px;
+    }
+
+    /* --- SAKURA --- */
+    .sakura { position: absolute; background-color: #ffd7e6; border-radius: 100% 0 100% 0; opacity: 0.6; animation: fall linear infinite; }
+    @keyframes fall { to { transform: translateY(105vh) rotate(720deg); } }
+    .flower { position: fixed; font-size: 25px; pointer-events: none; animation: floatUp 1.5s ease-out forwards; z-index: 100; }
+    @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-100px); } }
+    .anime-box img { width: 80px; height: 80px; object-fit: cover; border-radius: 15px; border: 2px solid #fff; margin-right: 5px;}
+  </style>
+</head>
+<body>
+
+  <canvas id="matrix"></canvas>
+  <img src="https://media.tenor.com/GoM3XwZ0l1QAAAAi/naruto-running.gif" class="naruto-run" alt="Naruto Run">
+
+  <div id="overlay-arvore">
+    <div id="texto-niver" class="msg-niver-top">Feliz Aniversário, Thaynara!</div>
+    <canvas id="canvas-arvore"></canvas>
+    <button onclick="fecharArvore()" style="background: rgba(255,255,255,0.2); border: 1px solid #fff;">Voltar para a carta 🌸</button>
+  </div>
+
+  <div class="envelope">
+    <h1>Feliz Aniversário 💖</h1>
+    <p>Hoje o mundo ficou mais bonito porque é o seu dia! 🌸</p>
+    <button onclick="abrirCarta()">Ler Cartinha 💌</button>
+
+    <div id="mensagem" class="hidden surpresa">
+      <center><button class="btn-natureza" onclick="iniciarAnimacaoArvore()">Surpresa: Florescer 🌿✨</button></center>
+      <p><strong>Thaynara... 🌿🏐</strong></p>
+      <p>
+        Feliz Aniversário Sua Sebosa! Jhaynara, Desejo tudo de bom para você minha linda, que nesse Aniversário você veja como é importante é especial. Esse novo ciclo da sua vida, seja repleto de bons momentos.
+        <br><br>
+        Saiba que te amo muito viu. Vejo que você tem um passado que te deu muitas feridas, mesmo com elas continua com esse sorriso lindo encarando a vida de forma bonita, não perca essa sua essencia, gentileza, inteligencia, você é Incrivel!
+        <br><br>
+        Que Deus esteja com você no seu presente é futuro, com muita saúde é paz, saiba que você é um presente na vida de muitos, assim como na minha, sou grato por te conhecer no dc, espero que possa contar comigo sempre viu.
+        <br><br>
+        Que a vida te leve por caminhos leves, floridos e cheios de energia. Que o vôlei continue te ensinando sobre força, amizade e sonhos. Tenha ótimos momentos, conheça novos lugares, sorria nos melhores momentos e aproveite sempre sua presença.
+        <br><br>
+        <em>"O talento é algo que você faz florescer, instinto é algo que você pule."</em> (Haikyuu)<br>
+        Voe alto nesse novo ano! 🏐✨
+      </p>
+      <p style="font-style: italic; color: #ffeb3b; text-align: center; font-weight: 600;">
+        "O trabalho duro é inútil para aqueles que não acreditam em si mesmos." 🍥
+      </p>
+      <div class="anime-box">
+        <img src="hinata.jpg" alt="Hinata">
+        <img src="naruto.png" alt="Naruto">
+      </div>
+      <video src="ssstik.io_@thaywyf_1768789712159.mp4" controls width="100%" style="border-radius:15px; margin-top:10px;"></video>
+    </div>
+  </div>
+
+  <div class="volei-container" id="botao-volei">
+    <div class="cantada-popup" id="cantada-texto">Ei, gatinha!</div>
+    <div class="bola" id="bola-clicavel">🏐</div>
+  </div>
+
+  <script>
+    /* --- MATRIX E SAKURA (Igual ao anterior) --- */
+    const canvasM = document.getElementById('matrix');
+    const ctxM = canvasM.getContext('2d');
+    function resM() { canvasM.width = window.innerWidth; canvasM.height = window.innerHeight; }
+    resM();
+    const letras = ['🌸', '🌿', '🏐', '🍃', '✨'];
+    const drops = Array(Math.floor(canvasM.width / 20)).fill(1);
+    setInterval(() => {
+      ctxM.fillStyle = 'rgba(168, 230, 207, 0.1)'; ctxM.fillRect(0, 0, canvasM.width, canvasM.height);
+      ctxM.fillStyle = '#fff'; drops.forEach((y, i) => {
+        ctxM.fillText(letras[Math.floor(Math.random()*letras.length)], i*20, y*20);
+        if(y*20 > canvasM.height && Math.random() > 0.98) drops[i] = 0; drops[i]++;
+      });
+    }, 100);
+
+    setInterval(() => {
+      const s = document.createElement('div'); s.className = 'sakura';
+      s.style.left = Math.random() * 100 + 'vw'; s.style.width = s.style.height = Math.random()*10+5+'px';
+      s.style.animationDuration = Math.random()*3+2+'s'; document.body.appendChild(s);
+      setTimeout(() => s.remove(), 5000);
+    }, 300);
+
+    /* --- ÁRVORE FRACTAL (A MÁGICA AQUI) --- */
+    const canvasA = document.getElementById('canvas-arvore');
+    const ctxA = canvasA.getContext('2d');
+    let animationId;
+
+    function iniciarAnimacaoArvore() {
+      document.getElementById('overlay-arvore').style.display = 'flex';
+      document.getElementById('texto-niver').style.opacity = '1';
+      canvasA.width = 600; canvasA.height = 500;
+      ctxA.clearRect(0, 0, canvasA.width, canvasA.height);
+      drawTree(canvasA.width/2, canvasA.height - 20, -90, 9);
+    }
+
+    function drawTree(x1, y1, angle, depth) {
+      if (depth === 0) return;
+
+      // Calcula o ponto final do galho
+      const len = depth * 12;
+      const x2 = x1 + Math.cos(angle * Math.PI / 180) * len;
+      const y2 = y1 + Math.sin(angle * Math.PI / 180) * len;
+
+      // Estilo do galho
+      setTimeout(() => {
+        ctxA.beginPath();
+        ctxA.moveTo(x1, y1);
+        ctxA.lineTo(x2, y2);
+        ctxA.strokeStyle = depth <= 2 ? '#ff9a9e' : '#5d4037'; // Flores rosa na ponta
+        ctxA.lineWidth = depth;
+        ctxA.stroke();
+
+        // Se for a ponta, desenha uma "flor" (matriz de luz)
+        if (depth < 3) {
+          ctxA.fillStyle = "#fff";
+          ctxA.arc(x2, y2, 2, 0, Math.PI * 2);
+          ctxA.fill();
+        }
+
+        // Ramificação
+        drawTree(x2, y2, angle - 20, depth - 1);
+        drawTree(x2, y2, angle + 20, depth - 1);
+      }, 100);
+    }
+
+    function fecharArvore() {
+      document.getElementById('overlay-arvore').style.display = 'none';
+      document.getElementById('texto-niver').style.opacity = '0';
+    }
+
+    /* --- CANTADAS E GERAL --- */
+    const cantadas = [
+      "Me chama de vôlei e me dá um toque!",
+      "Não sou o Hinata, mas daria um pulo pra te ver!",
+      "Meu amor por você é igual ao saque do Oikawa.",
+      "Se você fosse um levantamento, eu nunca te deixaria cair.",
+      "Me chama de Kageyama e deixa eu levantar seu coração!",
+      "Você é o líbero? Porque salvou meu dia!",
+      "Gata, você não é o Naruto, mas me deixou num Genjutsu.",
+      "Minha meta era ser Hokage, mas minha meta agora é você!",
+      "Eu confio demais, mas as vezes acho que os olhos estão mentindo, que alguém como vc exista",
+      "É quanto os ingresso desse espetaculo de pessoa kkkkkk essa foi uma bosta, te amo thay"
+    ];
+
+    document.getElementById('botao-volei').addEventListener('click', () => {
+      const b = document.getElementById('bola-clicavel');
+      const p = document.getElementById('cantada-texto');
+      b.classList.add('bola-hit');
+      p.innerText = cantadas[Math.floor(Math.random() * cantadas.length)];
+      p.classList.add('cantada-active');
+      setTimeout(() => { b.classList.remove('bola-hit'); p.classList.remove('cantada-active'); }, 2500);
+    });
+
+    document.addEventListener('click', (e) => {
+      if(e.target.tagName !== 'BUTTON' && !e.target.classList.contains('bola')) {
+        const f = document.createElement('div'); f.className = 'flower'; f.innerHTML = '🌸';
+        f.style.left = e.clientX + 'px'; f.style.top = e.clientY + 'px';
+        document.body.appendChild(f); setTimeout(() => f.remove(), 1500);
+      }
+    });
+
+    function abrirCarta() { document.getElementById('mensagem').classList.toggle('hidden'); }
+  </script>
+</body>
+</html>
